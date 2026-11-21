@@ -4,76 +4,127 @@ import { CompaniesService } from "./companies.service.js";
 
 const companiesService = new CompaniesService();
 
+function getCompanyId(res: Response): number | null {
+    const companyId = res.locals.user?.companyId;
+
+    return typeof companyId === "number" &&
+        Number.isSafeInteger(companyId) &&
+        companyId > 0
+        ? companyId
+        : null;
+}
+
 export class CompaniesController {
 
-    async getAll(req: Request, res: Response) {
+    async getMyCompany(
+        req: Request,
+        res: Response
+    ): Promise<void> {
         try {
-            const companies = await companiesService.getAll();
+            const companyId = getCompanyId(res);
 
-            res.status(200).json(companies);
-        } catch (erro) {
-            console.error("Erro ao buscar empresas:", erro);
-
-            res.status(500).json({
-                message: "Erro interno ao buscar empresas."
-            });
-        }
-    }
-
-
-    async create(req: Request, res: Response) {
-        const {
-            corporateName,
-            tradeName,
-            cnpj,
-            email,
-            phone
-        } = req.body;
-
-        if (
-            typeof corporateName !== "string" ||
-            !corporateName.trim() ||
-            typeof tradeName !== "string" ||
-            !tradeName.trim() ||
-            typeof cnpj !== "string" ||
-            !/^\d{14}$/.test(cnpj) ||
-            typeof email !== "string" ||
-            !email.trim() ||
-            (phone != null && typeof phone !== "string")
-        ) {
-            res.status(400).json({
-                message: "Dados inválidos para cadastro da empresa."
-            });
-            return;
-        }
-
-        try {
-            const company = await companiesService.create({
-                corporateName: corporateName.trim(),
-                tradeName: tradeName.trim(),
-                cnpj,
-                email: email.trim(),
-                phone: phone ?? null
-            });
-
-            res.status(201).json(company);
-
-        } catch (erro) {
-            const erroBanco = erro as { code?: string };
-
-            if (erroBanco.code === "ER_DUP_ENTRY") {
-                res.status(409).json({
-                    message: "Este CNPJ já está cadastrado."
+            if (companyId === null) {
+                res.status(401).json({
+                    message: "Empresa não identificada."
                 });
                 return;
             }
 
-            console.error("Erro ao cadastrar empresa:", erro);
+            const empresa = await companiesService.getById(
+                companyId
+            );
+
+            if (!empresa || empresa.status !== "ACTIVE") {
+                res.status(404).json({
+                    message: "Empresa ativa não encontrada."
+                });
+                return;
+            }
+
+            res.status(200).json(empresa);
+
+        } catch (erro) {
+            console.error("Erro ao consultar empresa:", erro);
 
             res.status(500).json({
-                message: "Erro interno ao cadastrar empresa."
+                message: "Erro interno ao consultar empresa."
             });
         }
     }
 
+    async updateMyCompany(
+        req: Request,
+        res: Response
+    ): Promise<void> {
+        try {
+            const companyId = getCompanyId(res);
+
+            if (companyId === null) {
+                res.status(401).json({
+                    message: "Empresa não identificada."
+                });
+                return;
+            }
+
+            const {
+                corporateName,
+                tradeName,
+                email,
+                phone
+            } = req.body ?? {};
+
+            if (
+                typeof corporateName !== "string" ||
+                !corporateName.trim() ||
+                typeof tradeName !== "string" ||
+                !tradeName.trim() ||
+                (email != null && typeof email !== "string") ||
+                (phone != null && typeof phone !== "string")
+            ) {
+                res.status(400).json({
+                    message: "Dados cadastrais inválidos."
+                });
+                return;
+            }
+
+            const normalizedEmail = email?.trim() || null;
+            const normalizedPhone = phone?.trim() || null;
+
+            if (
+                normalizedEmail &&
+                !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(normalizedEmail)
+            ) {
+                res.status(400).json({
+                    message: "Email inválido."
+                });
+                return;
+            }
+
+            const empresa = await companiesService.update(
+                companyId,
+                {
+                    corporateName: corporateName.trim(),
+                    tradeName: tradeName.trim(),
+                    email: normalizedEmail,
+                    phone: normalizedPhone
+                }
+            );
+
+            if (!empresa) {
+                res.status(404).json({
+                    message: "Empresa ativa não encontrada."
+                });
+                return;
+            }
+
+            res.status(200).json(empresa);
+
+        } catch (erro) {
+            console.error("Erro ao atualizar empresa:", erro);
+
+            res.status(500).json({
+                message: "Erro interno ao atualizar empresa."
+            });
+        }
+    }
 }

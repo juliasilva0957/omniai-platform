@@ -3,6 +3,7 @@ import express from "express";
 import usersRoutes from "./modules/users/users.routes.js";
 import conexao from "./config/database.js";
 import companiesRoutes from "./modules/companies/companies.routes.js";
+import authRoutes from "./modules/auth/auth.routes.js";
 
 const app = express();
 
@@ -18,6 +19,7 @@ app.get("/health", (req, res) => {
 
 app.use("/users", usersRoutes);
 app.use("/companies", companiesRoutes);
+app.use("/auth", authRoutes);
 
 async function testarConexao() {
     try {

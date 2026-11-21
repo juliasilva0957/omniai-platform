@@ -1,16 +1,27 @@
+export type CompanyStatus = "ACTIVE" | "INACTIVE";
 
 export interface Company {
     id: number;
     corporateName: string;
     tradeName: string;
     cnpj: string;
-    email: string;
+    email: string | null;
     phone: string | null;
-    status: "ACTIVE" | "INACTIVE";
+    status: CompanyStatus;
     createdAt: Date;
 }
 
-export type CreateCompany = Pick<
-    Company,
-    "corporateName" | "tradeName" | "cnpj" | "email" | "phone"
->;
+export interface CreateCompany {
+    corporateName: string;
+    tradeName: string;
+    cnpj: string;
+    email?: string | null;
+    phone?: string | null;
+}
+
+export interface UpdateCompany {
+    corporateName: string;
+    tradeName: string;
+    email: string | null;
+    phone: string | null;
+}

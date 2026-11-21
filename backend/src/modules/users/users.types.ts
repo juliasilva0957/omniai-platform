@@ -4,6 +4,13 @@ export interface User {
     name: string;
     email: string;
     role: "USER" | "ADMIN";
+    companyId: number | null;
 }
 
-export type CreateUser = Omit<User, "id">;
+export interface CreateUser {
+    name: string;
+    email: string;
+    password: string;
+    role: "USER" | "ADMIN";
+    companyId: number;
+}
