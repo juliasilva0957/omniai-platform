@@ -4,10 +4,18 @@ import usersRoutes from "./modules/users/users.routes.js";
 import conexao from "./config/database.js";
 import companiesRoutes from "./modules/companies/companies.routes.js";
 import authRoutes from "./modules/auth/auth.routes.js";
-
+import cors from "cors";
 const app = express();
 
 app.use(express.json());
+
+app.use(
+  cors({
+    origin: "http://localhost:5173",
+    methods: ["GET", "POST", "PUT", "PATCH", "DELETE"],
+    allowedHeaders: ["Content-Type", "Authorization"],
+  })
+);
 
 app.get("/health", (req, res) => {
     res.status(200).json({

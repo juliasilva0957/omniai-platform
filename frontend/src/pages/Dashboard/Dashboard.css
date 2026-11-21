@@ -1,0 +1,139 @@
+
+.dashboard-page {
+  max-width: 1280px;
+  margin: 0 auto;
+}
+
+.dashboard-welcome {
+  margin-bottom: 32px;
+}
+
+.dashboard-eyebrow {
+  color: #A230A4;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+}
+
+.dashboard-welcome h1 {
+  margin-top: 10px;
+  color: #290087;
+  font-size: 32px;
+}
+
+.dashboard-welcome p {
+  margin-top: 8px;
+  color: #716487;
+  font-size: 14px;
+}
+
+.dashboard-cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+.dashboard-info-card {
+  padding: 26px;
+
+  background: #FFFFFF;
+  border: 1px solid #E9E3F1;
+  border-radius: 18px;
+
+  box-shadow: 0 4px 18px rgba(41, 0, 135, 0.04);
+}
+
+.dashboard-card-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 48px;
+  height: 48px;
+  margin-bottom: 22px;
+
+  border-radius: 14px;
+
+  background: #EEE9F8;
+  color: #A230A4;
+}
+
+.dashboard-info-card > span {
+  color: #716487;
+  font-size: 12px;
+}
+
+.dashboard-info-card h3 {
+  margin-top: 6px;
+  color: #290087;
+  font-size: 21px;
+}
+
+.dashboard-info-card p {
+  margin-top: 10px;
+  color: #8D80A5;
+  font-size: 12px;
+}
+
+.dashboard-intro-card {
+  display: flex;
+  align-items: flex-start;
+  gap: 24px;
+
+  margin-top: 28px;
+  padding: 32px;
+
+  background: #FFFFFF;
+  border: 1px solid #E9E3F1;
+  border-radius: 18px;
+}
+
+.dashboard-intro-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+
+  width: 58px;
+  height: 58px;
+
+  border-radius: 16px;
+
+  background: #F2E0A4;
+  color: #290087;
+}
+
+.dashboard-intro-card h2 {
+  color: #290087;
+  font-size: 21px;
+}
+
+.dashboard-intro-card p {
+  max-width: 650px;
+  margin-top: 12px;
+
+  color: #716487;
+  font-size: 14px;
+  line-height: 1.8;
+}
+
+@media (max-width: 1000px) {
+  .dashboard-cards {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  .dashboard-cards {
+    grid-template-columns: 1fr;
+  }
+
+  .dashboard-intro-card {
+    flex-direction: column;
+    padding: 24px;
+  }
+
+  .dashboard-welcome h1 {
+    font-size: 26px;
+  }
+}

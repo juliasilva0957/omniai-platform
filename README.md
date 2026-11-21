@@ -114,4 +114,174 @@ O banco utiliza chaves primárias e estrangeiras para estabelecer relacionamento
 
 | Método | Endpoint | Descrição |
 |---|---|---|
-| GET
+| GET | `/users` | Listar usuários |
+| GET | `/users/:id` | Buscar usuário por ID |
+| POST | `/users` | Cadastrar usuário |
+
+### Empresas
+
+| Método | Endpoint | Descrição |
+|---|---|---|
+| GET | `/companies` | Listar empresas |
+| POST | `/companies` | Cadastrar empresa |
+
+### Verificação
+
+| Método | Endpoint | Descrição |
+|---|---|---|
+| GET | `/health` | Verificar o funcionamento da API |
+
+**Atenção:** os endpoints estão em fase de desenvolvimento e ainda não possuem autenticação e autorização. Não devem ser expostos publicamente nessa condição.
+
+## 🚀 Como executar o projeto
+
+### Pré-requisitos
+
+- Node.js e npm
+- MySQL Server 8.0
+- Banco `omniai_bd` criado
+- Git
+
+### 1. Clonar o repositório
+
+```bash
+git clone URL_DO_REPOSITORIO
+cd omniai-platform/backend
+```
+
+Substitua `URL_DO_REPOSITORIO` pelo endereço real do projeto no GitHub.
+
+### 2. Instalar as dependências
+
+```bash
+npm install
+```
+
+### 3. Configurar o ambiente
+
+Crie um arquivo `.env` dentro da pasta `backend`:
+
+```env
+DB_HOST=localhost
+DB_PORT=3306
+DB_USER=root
+DB_PASSWORD=SUA_SENHA
+DB_NAME=omniai_bd
+```
+
+O banco e suas tabelas precisam estar previamente criados no MySQL. A disponibilização de scripts de migração está planejada.
+
+**Nunca publique o arquivo `.env` com credenciais reais.**
+
+### 4. Iniciar o servidor
+
+```bash
+npm run dev
+```
+
+A API estará disponível em:
+
+```text
+http://localhost:3333
+```
+
+Para verificar seu funcionamento:
+
+```text
+http://localhost:3333/health
+```
+
+## 🖥️ Funcionalidades planejadas
+
+### Portal da empresa
+
+O ambiente administrativo permitirá:
+
+- Cadastro e gerenciamento de colaboradores.
+- Controle de permissões.
+- Dashboard com indicadores.
+- Acompanhamento de atividades e solicitações.
+- Gerenciamento de automações.
+- Visualização de históricos e relatórios.
+
+### Portal do usuário
+
+O ambiente do colaborador permitirá:
+
+- Login individual.
+- Visualização de mensagens recentes.
+- Acompanhamento de atividades atribuídas.
+- Avisos sobre prazos próximos.
+- Consulta de solicitações.
+- Interação com assistentes de IA.
+
+### Inteligência Artificial e automação
+
+A plataforma também deverá permitir:
+
+- Atendimento automatizado.
+- Interpretação e classificação de solicitações.
+- Integração com canais de comunicação.
+- Execução de workflows pelo n8n.
+- Encaminhamento de tarefas.
+- Fluxos de aprovação com supervisão humana.
+
+## 🔐 Segurança
+
+O projeto prevê a implementação de:
+
+- Autenticação de usuários.
+- Armazenamento seguro de senhas com hash.
+- Controle de acesso baseado em permissões.
+- Isolamento de dados entre empresas.
+- Validação de entradas.
+- Proteção de credenciais.
+- Registro de auditoria.
+
+Esses mecanismos ainda estão em desenvolvimento.
+
+## 📈 Roadmap
+
+- [x] Configuração inicial do backend.
+- [x] API REST com Express e TypeScript.
+- [x] Integração com MySQL.
+- [x] Cadastro e consulta de usuários.
+- [x] Estrutura inicial de empresas.
+- [x] Cadastro e consulta de empresas.
+- [x] Relacionamento entre empresas e usuários no banco.
+- [ ] Cadastro de usuários vinculados à empresa pela API.
+- [ ] Autenticação e autorização.
+- [ ] Gerenciamento administrativo de colaboradores.
+- [ ] Módulo de atividades e prazos.
+- [ ] Sistema de avisos e notificações.
+- [ ] Dashboard administrativo.
+- [ ] Frontend com React.
+- [ ] Integração com Inteligência Artificial.
+- [ ] Integração com WhatsApp.
+- [ ] Integração com Microsoft Teams.
+- [ ] Workflows automatizados com n8n.
+- [ ] Testes automatizados e documentação da API.
+- [ ] Deploy da aplicação.
+
+## 📚 Aprendizados
+
+Durante o desenvolvimento do OmniAI, estão sendo aplicados conceitos de:
+
+- Desenvolvimento de APIs REST.
+- Programação assíncrona com `async/await`.
+- TypeScript e tipagem estática.
+- Arquitetura modular.
+- SQL e modelagem relacional.
+- Tratamento de erros HTTP.
+- Integração entre backend e banco de dados.
+- Versionamento com Git e GitHub.
+
+## 📌 Status
+
+**Em desenvolvimento — MVP**
+
+O foco atual é a construção da arquitetura multiempresa, incluindo gerenciamento de usuários, autenticação e permissões.
+
+---
+
+Desenvolvido como projeto de estudo e portfólio em Engenharia de Software, Backend e Inteligência Artificial.

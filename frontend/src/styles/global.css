@@ -1,0 +1,15 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap");
+*{margin:0;padding:0;box-sizing:border-box}
+html{font-family:var(--font-family);font-size:16px;scroll-behavior:smooth}
+body{min-width:320px;min-height:100vh;background:var(--color-background);color:var(--color-text);font-family:var(--font-family);font-size:var(--font-size-md);line-height:1.6;-webkit-font-smoothing:antialiased}
+#root{min-height:100vh}
+button,input,textarea,select{font:inherit}
+button{cursor:pointer}
+a{color:var(--color-primary);text-decoration:none;transition:color var(--transition-fast)}
+a:hover{color:var(--color-primary-hover)}
+h1,h2,h3,h4,h5,h6{color:var(--color-text);font-weight:700;line-height:1.25}
+h1{font-size:var(--font-size-3xl)}h2{font-size:var(--font-size-2xl)}h3{font-size:var(--font-size-xl)}
+p{color:var(--color-text-secondary)}img{max-width:100%;display:block}
+::selection{background:var(--color-periwinkle);color:var(--color-dark-ultramarine)}
+:focus-visible{outline:3px solid var(--color-amethyst);outline-offset:3px}
+@media(max-width:768px){h1{font-size:2rem}h2{font-size:1.5rem}h3{font-size:1.25rem}}
